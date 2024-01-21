@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "mc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705781340,
+        "narHash": "sha256-Ii8Z/c9+1eXcSTuZIJBlK9kx81dRxJX4abfYKk/ZgdU=",
+        "owner": "MidnightCommander",
+        "repo": "mc",
+        "rev": "953c10134767853a39e95caf9b04c7431f65d0e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MidnightCommander",
+        "repo": "mc",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1705677747,
+        "narHash": "sha256-eyM3okYtMgYDgmYukoUzrmuoY4xl4FUujnsv/P6I/zI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bbe7d8f876fbbe7c959c90ba2ae2852220573261",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "mc": "mc",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
