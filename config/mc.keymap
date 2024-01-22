@@ -1,7 +1,7 @@
 [filemanager]
 ChangePanel = tab; ctrl-i
 Help = f1
-UserMenu = f2
+UserMenu = u
 View = v
 # ViewFile = v
 Edit = e
@@ -171,7 +171,7 @@ DeleteToWordEnd = alt-d
 Remove = ctrl-w
 # Cut =
 Store = alt-w
-Paste = p
+Paste = ctrl-p
 Yank = ctrl-y; y
 DeleteToEnd = ctrl-k
 HistoryPrev = alt-p; ctrl-down
