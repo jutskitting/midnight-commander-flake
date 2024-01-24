@@ -27,12 +27,12 @@
 
     mc-custom = pkgs.mc.overrideAttrs (oldAttrs: {
       postPatch = oldAttrs.postPatch + ''
-        # echo "Listing the contents of the source directory:"
-        # ls -laR
+        echo "Listing the contents of the source directory:"
+        ls -laR
 
         install -D ${./config/mc.keymap} ./misc/mc.default.keymap
         install -D ${./config/skins/default.ini} ./misc/skins/default.ini
-        install -D ${./config/mc.ext.ini} ./misc/mc.ext.ini
+        install -D ${./config/mc.ext.ini} ./misc/mc.ext.ini.in
         install -D ${./config/setup.c} ./src/setup.c
         # install -D ${./config/ini} ./mc/mc.ini
       '';
