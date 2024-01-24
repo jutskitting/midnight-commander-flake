@@ -19,17 +19,9 @@
   let 
     system = "x86_64-linux";
 
-    # configFileContent = builtins.readFile ./config/lfrc;
-    # configFile = pkgs.writeTextFile {
-    #     name = "mc";
-    #     text = configFileContent;
-    # };
-
     pkgs = import nixpkgs {
         inherit system;
       };
-
-    packages.${system}.mc = nixpkgs.legacyPackages.${system}.mc;
 
     mc-custom = pkgs.mc.overrideAttrs (oldAttrs: {
       postPatch = oldAttrs.postPatch + ''
