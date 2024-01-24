@@ -1,17 +1,17 @@
 [filemanager]
 ChangePanel = tab; ctrl-i
 Help = f1
-UserMenu = u
-View = v
-# ViewFile = v
-Edit = e
+UserMenu = U
+View = V
+# ViewFile = 
+Edit = E
 # EditForceInternal =
 Copy = Y
-Move = m
+Move = M
 MakeDir = N
 Delete = D
 Menu = f9
-Quit = esc; q
+Quit = esc; Q
 MenuLastSelected = f19
 QuitQuiet = f20
 Find = /
@@ -21,7 +21,7 @@ Reread = ctrl-r
 DirSize = ctrl-space
 Suspend = ctrl-z
 Swap = ctrl-u
-History = alt-h
+History = H
 # PanelListing =
 # SetupListingFormat =
 ShowHidden = alt-dot
@@ -52,9 +52,9 @@ ScreenList = alt-prime
 # Filter =
 # ConnectShell =
 # ConnectFtp =
-Undelete = r
+Undelete = R
 EditorViewerHistory = alt-shift-e
-ExtendedKeyMap = x
+ExtendedKeyMap = X
 
 [filemanager:xmap]
 ChangeMode = c
