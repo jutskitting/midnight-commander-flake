@@ -23,6 +23,8 @@
         inherit system;
       };
 
+    feh = pkgs.feh;
+
     mc-custom = pkgs.mc.overrideAttrs (oldAttrs: {
       postPatch = oldAttrs.postPatch + ''
         # echo "Listing the contents of the source directory:"
@@ -39,10 +41,12 @@
   in {
     inherit system;
     inherit mc-custom;
+    inherit feh;
 
     devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
       buildInputs = [
             mc-custom
+            feh
       ];
     };
 
