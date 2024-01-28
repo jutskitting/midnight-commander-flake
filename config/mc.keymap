@@ -1,7 +1,7 @@
 [filemanager]
 ChangePanel = tab; ctrl-i
 Help = f1
-UserMenu = U
+UserMenu = :
 View = V
 # ViewFile = 
 Edit = E
