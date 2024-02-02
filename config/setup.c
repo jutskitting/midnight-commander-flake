@@ -141,7 +141,8 @@ panels_options_t panels_options = {
     .mouse_move_pages = FALSE,
     .filetype_mode = TRUE,
     .permission_mode = FALSE,
-    .qsearch_mode = QSEARCH_PANEL_CASE,
+    // .qsearch_mode = QSEARCH_PANEL_CASE,
+    .qsearch_mode = 0,
     .torben_fj_mode = FALSE,
     .select_flags = SELECT_MATCH_CASE | SELECT_SHELL_PATTERNS
 };

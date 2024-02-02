@@ -222,7 +222,7 @@ Bottom = J; alt-gt; c1
 PageUp = pgup; alt-v
 PageDown = pgdn; ctrl-v
 Enter = enter
-Search = ctrl-s; alt-s
+Search = /; alt-s
 Delete = f8; delete
 
 [help]
