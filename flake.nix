@@ -8,8 +8,8 @@
     };
 
     mc = {
-      url = "github:MidnightCommander/mc";
-      flake = false;
+        url = "github:MidnightCommander/mc";
+        flake = false;
     };
 
   };
