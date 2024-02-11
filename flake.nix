@@ -52,7 +52,7 @@
             ];
         };
 
-        packages.${system}.default = mc-custom;
+        packages.default = mc-custom;
 
         apps.default = {
             type = "app";
