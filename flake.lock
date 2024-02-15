@@ -21,11 +21,11 @@
     "mc": {
       "flake": false,
       "locked": {
-        "lastModified": 1706640903,
-        "narHash": "sha256-8xeTZaWcUwBYvEOeQ1Mzy2VaHZtvVKxCwNQg9ereZwk=",
+        "lastModified": 1707668887,
+        "narHash": "sha256-ZDW/lT99RGiL4yGvJ28MRHaveL0O4XXN4jDxnvO1CIg=",
         "owner": "MidnightCommander",
         "repo": "mc",
-        "rev": "c1832fd586361f9c5a62a77da0d6c4a693a9ac51",
+        "rev": "6b44fce839b5c2e85fdfb8e1d4e5052c7f1c1c3a",
         "type": "github"
       },
       "original": {
@@ -36,11 +36,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1707092692,
-        "narHash": "sha256-ZbHsm+mGk/izkWtT4xwwqz38fdlwu7nUUKXTOmm4SyE=",
+        "lastModified": 1707863367,
+        "narHash": "sha256-LdBbCSSP7VHaHA4KXcPGKqkvsowT2+7W4jlEHJj6rPg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "faf912b086576fd1a15fca610166c98d47bc667e",
+        "rev": "35ff7e87ee05199a8003f438ec11a174bcbd98ea",
         "type": "github"
       },
       "original": {
