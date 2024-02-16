@@ -579,7 +579,7 @@ index a3dd3e3..74d88ce 100644
 +    window-state-char = ↕
 +    window-close-char = ✕
 diff --git a/src/setup.c b/src/setup.c
-index 9d6e153..ae79101 100644
+index 9d6e153..1c5865a 100644
 --- a/src/setup.c
 +++ b/src/setup.c
 @@ -82,9 +82,9 @@
@@ -594,15 +594,6 @@ index 9d6e153..ae79101 100644
  
  /* Controls screen clearing before an exec */
  gboolean clear_before_exec = TRUE;
-@@ -92,7 +92,7 @@ gboolean clear_before_exec = TRUE;
- /* Asks for confirmation before deleting a file */
- gboolean confirm_delete = TRUE;
- /* Asks for confirmation before deleting a hotlist entry */
--gboolean confirm_directory_hotlist_delete = FALSE;
-+gboolean confirm_directory_hotlist_delete = TRUE;
- /* Asks for confirmation before overwriting a file */
- gboolean confirm_overwrite = TRUE;
- /* Asks for confirmation before executing a program by pressing enter */
 @@ -135,13 +135,14 @@ panels_options_t panels_options = {
      .mark_moves_down = TRUE,
      .reverse_files_only = TRUE,
@@ -617,8 +608,8 @@ index 9d6e153..ae79101 100644
      .filetype_mode = TRUE,
      .permission_mode = FALSE,
 -    .qsearch_mode = QSEARCH_PANEL_CASE,
-+    // .qsearch_mode = QSEARCH_PANEL_CASE,
-+    .qsearch_mode = 0,
++    .qsearch_mode = QSEARCH_CASE_INSENSITIVE,
++    // .qsearch_mode = 0,
      .torben_fj_mode = FALSE,
      .select_flags = SELECT_MATCH_CASE | SELECT_SHELL_PATTERNS
  };
@@ -631,8 +622,12 @@ index 9d6e153..ae79101 100644
  
  /* If true, then the +, - and \ keys have their special meaning only if the
   * command line is empty, otherwise they behave like regular letters
-@@ -160,7 +161,7 @@ gboolean only_leading_plus_minus = TRUE;
- gboolean auto_fill_mkdir_name = TRUE;
+@@ -157,10 +158,10 @@ gboolean auto_save_setup = TRUE;
+ gboolean only_leading_plus_minus = TRUE;
+ 
+ /* Automatically fills name with current selected item name on mkdir */
+-gboolean auto_fill_mkdir_name = TRUE;
++gboolean auto_fill_mkdir_name = FALSE;
  
  /* If set and you don't have subshell support, then C-o will give you a shell */
 -gboolean output_starts_shell = FALSE;
@@ -640,12 +635,23 @@ index 9d6e153..ae79101 100644
  
  #ifdef USE_FILE_CMD
  /* If set, we execute the file command to check the file type */
-@@ -179,7 +180,7 @@ gboolean file_op_compute_totals = TRUE;
+@@ -177,9 +178,9 @@ gboolean verbose = TRUE;
+ gboolean file_op_compute_totals = TRUE;
+ 
  /* If true use the internal viewer */
- gboolean use_internal_view = TRUE;
+-gboolean use_internal_view = TRUE;
++gboolean use_internal_view = FALSE;
  /* If set, use the builtin editor */
 -gboolean use_internal_edit = TRUE;
 +gboolean use_internal_edit = FALSE;
  
  #ifdef HAVE_CHARSET
  /* Numbers of (file I/O) and (input/display) codepages. -1 if not selected */
+@@ -698,6 +699,7 @@ panels_load_options (void)
+ 
+         qmode = mc_config_get_int (mc_global.main_config, CONFIG_PANELS_SECTION,
+                                    "quick_search_mode", (int) panels_options.qsearch_mode);
++        qmode = -1;
+         if (qmode < 0)
+             panels_options.qsearch_mode = QSEARCH_CASE_INSENSITIVE;
+         else if (qmode >= QSEARCH_NUM)
