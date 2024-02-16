@@ -29,18 +29,25 @@
                 inherit system;
             };
 
-        mc-custom = pkgs.mc.overrideAttrs (oldAttrs: {
+        mc-custom = pkgs.mc.overrideAttrs (oldAttrs: with pkgs; {
 
         #   postPatch = oldAttrs.postPatch + ''
         #     echo "Listing the contents of the source directory:"
         #     echo "$(cat ./misc/mc.ext.ini.in)"
         # '';
         #
-
           patches = [
             ./patches/changes.patch
           ];
+
+          buildInputs = oldAttrs.buildInputs ++ [
+            feh
+            zathura
+          ];
+
         });
+
+
 
       in {
 
@@ -50,15 +57,10 @@
                 feh
                 zathura
             ];
+
         };
 
         packages.default = mc-custom;
-
-        apps.default = {
-            type = "app";
-            program = "${mc-custom}/bin/mc";
-        };
-
       }
     );
 }
