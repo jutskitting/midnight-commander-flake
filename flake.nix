@@ -31,27 +31,14 @@
 
         mc-custom = pkgs.mc.overrideAttrs (oldAttrs: {
 
-          postPatch = oldAttrs.postPatch + ''
-            echo "Listing the contents of the source directory:"
-            echo "$(cat ./misc/mc.ext.ini.in)"
-        '';
-          #   ls  -laR
-          #   install -D ${./config/mc.keymap} ./misc/mc.default.keymap
-          #   install -D ${./config/skins/default.ini} ./misc/skins/default.ini
-          #   install -D ${./config/mc.ext.ini} ./misc/mc.ext.ini.in
-          #   install -D ${./config/setup.c} ./src/setup.c
-          #   install -D ${./config/ini} ./mc/mc.ini
-          # '';
-
+        #   postPatch = oldAttrs.postPatch + ''
+        #     echo "Listing the contents of the source directory:"
+        #     echo "$(cat ./misc/mc.ext.ini.in)"
+        # '';
+        #
           patches = [
             ./patches/changes.patch
           ];
-
-          # installPhase = ''
-          #      makeWrapper ${mc}/bin/mc $out/bin/mc-wrapper \
-          #     --set XDG_CONFIG_HOME ./config/mc.keymap
-          # '';
-          #
         });
 
       in {
