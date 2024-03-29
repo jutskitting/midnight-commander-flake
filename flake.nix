@@ -16,7 +16,6 @@
 
   };
 
-
   outputs = { self, nixpkgs, mc,flake-utils, }:
     flake-utils.lib.eachDefaultSystem (system:
       let 
@@ -31,36 +30,40 @@
 
         mc-custom = pkgs.mc.overrideAttrs (oldAttrs: with pkgs; {
 
-        #   postPatch = oldAttrs.postPatch + ''
-        #     echo "Listing the contents of the source directory:"
-        #     echo "$(cat ./misc/mc.ext.ini.in)"
-        # '';
-        #
           patches = [
             ./patches/changes.patch
           ];
 
-          buildInputs = oldAttrs.buildInputs ++ [
-            feh
-            zathura
-          ];
-
+          # buildInputs = oldAttrs.buildInputs ++ [
+          #   feh
+          #   zathura
+          #   makeWrapper
+          # ];
+          #
+          # installPhase = ''
+          #   wrapProgram $out/bin/mc --prefix PATH : ${pkgs.lib.makeBinPath [ feh zathura ]}
+          # '';
+          #
         });
-
-
 
       in {
 
         devShells.default = with lpkgs; with pkgs; mkShell {
-            buildInputs = [
-                mc-custom
-                feh
-                zathura
-            ];
+
+          buildInputs = [
+              mc-custom
+              feh
+              zathura
+          ];
+
+          shellHook = ''
+              mc
+            '';
 
         };
 
         packages.default = mc-custom;
+
       }
     );
 }
