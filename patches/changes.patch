@@ -37,7 +37,7 @@ index 6e7e8bd..7c6d357 100644
  Reread = ctrl-r
  DirSize = ctrl-space
  Suspend = ctrl-z
- Swap = ctrl-u
+ Swap = ctrl-s
 -History = alt-h
 +History = H
  # PanelListing =
@@ -99,7 +99,7 @@ index 6e7e8bd..7c6d357 100644
 +Up = up; k
 +Left = left; h
 +Right = right; l
-+PageUp = pgup
++PageUp = pgup; ctrl-u
 +PageDown = pgdn; ctrl-d
  Enter = enter
 -PanelOtherCd = alt-o
