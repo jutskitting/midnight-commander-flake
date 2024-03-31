@@ -1,5 +1,5 @@
 diff --git a/misc/mc.default.keymap b/misc/mc.default.keymap
-index 6e7e8bd..7c6d357 100644
+index 6e7e8bd..7e22dde 100644
 --- a/misc/mc.default.keymap
 +++ b/misc/mc.default.keymap
 @@ -1,27 +1,27 @@
@@ -37,8 +37,9 @@ index 6e7e8bd..7c6d357 100644
  Reread = ctrl-r
  DirSize = ctrl-space
  Suspend = ctrl-z
- Swap = ctrl-s
+-Swap = ctrl-u
 -History = alt-h
++Swap = ctrl-s
 +History = H
  # PanelListing =
  # SetupListingFormat =
@@ -330,6 +331,15 @@ index 6e7e8bd..7c6d357 100644
  History = alt-shift-e
  
  [diffviewer]
+@@ -466,7 +466,7 @@ Tab2 = 2
+ Tab3 = 3
+ Tab4 = 4
+ Tab8 = 8
+-Swap = ctrl-u
++Swap = ctrl-s
+ Redo = ctrl-r
+ HunkNext = n; enter; space
+ HunkPrev = p; backspace
 @@ -479,8 +479,8 @@ MergeOther = f15
  Search = f7
  SearchContinue = f17
