@@ -1322,6 +1322,23 @@ index a3dd3e3..74d88ce 100644
 -    window-close-char = X
 +    window-state-char = ↕
 +    window-close-char = ✕
+diff --git a/src/filemanager/panel.c b/src/filemanager/panel.c
+index f14fd38..8b2b104 100644
+--- a/src/filemanager/panel.c
++++ b/src/filemanager/panel.c
+@@ -2808,8 +2808,11 @@ do_search (WPanel * panel, int c_code)
+             }
+         }
+     }
+-
++    if (panel->quick_search.buffer->len == 0 || panel->quick_search.buffer->str[0] != '*') {
++        g_string_prepend(panel->quick_search.buffer, "*");
++    }
+     reg_exp = g_strdup_printf ("%s*", panel->quick_search.buffer->str);
++
+     esc_str = strutils_escape (reg_exp, -1, ",|\\{}[]", TRUE);
+     search = mc_search_new (esc_str, NULL);
+     search->search_type = MC_SEARCH_T_GLOB;
 diff --git a/src/setup.c b/src/setup.c
 index 9d6e153..1c5865a 100644
 --- a/src/setup.c
