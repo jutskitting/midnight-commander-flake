@@ -39,11 +39,14 @@
           #   zathura
           #   makeWrapper
           # ];
-          #
-          # installPhase = ''
-          #   wrapProgram $out/bin/mc --prefix PATH : ${pkgs.lib.makeBinPath [ feh zathura ]}
-          # '';
-          #
+
+          buildInputs = oldAttrs.buildInputs ++ [
+              pkgs.makeWrapper
+          ];
+
+          # The install phase creates a wrapper script around `mc`.
+          postIntall = ''
+          '';
         });
 
       in {
@@ -57,7 +60,7 @@
           ];
 
           shellHook = ''
-              mc
+            mc
             '';
 
         };

@@ -393,10 +393,10 @@ index c2152ee..4c3665c 100644
  
  ### EOF ###
 diff --git a/misc/mc.menu.in b/misc/mc.menu.in
-index 9d37e37..6891d86 100644
+index 9d37e37..1952547 100644
 --- a/misc/mc.menu.in
 +++ b/misc/mc.menu.in
-@@ -1,378 +1,394 @@
+@@ -1,378 +1,406 @@
  shell_patterns=0
  
  ##############################################################################
@@ -456,19 +456,18 @@ index 9d37e37..6891d86 100644
 -        ${EDITOR-vi} "$I"
 -        test -r "$I" && mail root < "$I"
 -        rm -f "$I"
-+# 0       edit a bug report and send it to root
-+#         i=`mktemp "${mc_tmpdir:-/tmp}/mail.xxxxxx"` || exit 1
-+#         ${editor-vi} "$i"
-+#         test -r "$i" && mail root < "$i"
-+#         rm -f "$i"
++q       Quit
++        pkill -SIGTERM -n mc
  
 -=+ f \.1$ | f \.3$ | f \.4$ | f \.5$ | f \.6$ | f \.7$ | f \.8$ | f \.man$ & t r
 -1       Display the file with roff -man
 -        %view{ascii,nroff} roff @MAN_FLAGS@ @MANDOC@ %f
--
++e       Open Shell
++        zellij action edit %f
+ 
 -2       Call the info hypertext browser
 -        info
--
+ 
 -= t d
 -3       Compress the current subdirectory (tar.gz)
 -        Pwd=`basename %d /`
@@ -478,7 +477,12 @@ index 9d37e37..6891d86 100644
 -        cd .. && \
 -        tar cf - "$Pwd" | gzip -f9 > "$tar.tar.gz" && \
 -        echo "../$tar.tar.gz created."
--
++# 0       edit a bug report and send it to root
++#         i=`mktemp "${mc_tmpdir:-/tmp}/mail.xxxxxx"` || exit 1
++#         ${editor-vi} "$i"
++#         test -r "$i" && mail root < "$i"
++#         rm -f "$i"
+ 
 -4       Compress the current subdirectory (tar.bz2)
 -        Pwd=`basename %d /`
 -        echo -n "Name of the compressed file (without extension) [$Pwd]: "
@@ -584,6 +588,11 @@ index 9d37e37..6891d86 100644
 +#         cd .. && \
 +#         tar cf - "$pwd" | lzop -f > "$tar.tar.lzo" && \
 +#         echo "../$tar.tar.lzo created."
++
++q       cd to current directory and exit MC
++        echo %d > ~/.mcwd
++        exit
++        exit
  
  = f \.c$ & t r
  + f \.c$ & t r & ! t t
@@ -599,7 +608,9 @@ index 9d37e37..6891d86 100644
 -        for i in %t ; do
 -            cat "$i" >> %D/"$i"
 -        done
--
++c       compile and link current .c file
++        make "`basename %f .c`" 2>/dev/null || cc -o -o "`basename %f .c`" %f
+ 
 -+ t r & ! t t
 -d       Delete file if a copy exists in the other directory.
 -        if [ %d = %D ]; then
@@ -617,9 +628,7 @@ index 9d37e37..6891d86 100644
 -        else
 -            echo %f": No copy in "%D/%f": NOT deleted."
 -        fi
-+c       compile and link current .c file
-+        make "`basename %f .c`" 2>/dev/null || cc -o -o "`basename %f .c`" %f
- 
+-
 -+ t t
 -D       Delete tagged files if a copy exists in the other directory.
 -        if [ %d = %D ]; then
@@ -900,49 +909,48 @@ index 9d37e37..6891d86 100644
  + ! t t
 -y       Gzip or gunzip current file
 -        unset DECOMP
--        case %f in
++y       gzip or gunzip current file
++        unset decomp
+         case %f in
 -            *.gz|*.[zZ]) DECOMP=-d;;
--        esac
++            *.gz|*.[zz]) decomp=-d;;
+         esac
 -        # Do *not* add quotes around $DECOMP!
 -        gzip $DECOMP -v %f
--
--+ t t
++        # do *not* add quotes around $decomp!
++        gzip $decomp -v %f
+ 
+ + t t
 -Y       Gzip or gunzip tagged files
--        for i in %t ; do
++y       gzip or gunzip tagged files
+         for i in %t ; do
 -            unset DECOMP
--            case "$i" in
++            unset decomp
+             case "$i" in
 -                *.gz|*.[zZ]) DECOMP=-d;;
--            esac
++                *.gz|*.[zz]) decomp=-d;;
+             esac
 -            gzip $DECOMP -v "$i"
 -        done
 -
 -+ ! t t
 -b       Bzip2 or bunzip2 current file
 -        unset DECOMP
-+y       gzip or gunzip current file
-+        unset decomp
-         case %f in
+-        case %f in
 -            *.bz2) DECOMP=-d;;
-+            *.gz|*.[zz]) decomp=-d;;
-         esac
+-        esac
 -        bzip2 $DECOMP -v %f
-+        # do *not* add quotes around $decomp!
-+        gzip $decomp -v %f
- 
- + t t
+-
+-+ t t
 -B       Bzip2 or bunzip2 tagged files
-+y       gzip or gunzip tagged files
-         for i in %t ; do
+-        for i in %t ; do
 -            unset DECOMP
-+            unset decomp
-             case "$i" in
+-            case "$i" in
 -                *.bz2) DECOMP=-d;;
-+                *.gz|*.[zz]) decomp=-d;;
-             esac
+-            esac
 -            bzip2 $DECOMP -v "$i"
-+            gzip $decomp -v "$i"
-         done
- 
+-        done
+-
 -+ f \.tar.gz$ | f \.tgz$ | f \.tpz$ | f \.tar.Z$ | f \.tar.z$ | f \.tar.bz2$ | f \.tar.F$ & t r & ! t t
 -z       Extract compressed tar file to subdirectory
 -        unset D
@@ -973,8 +981,9 @@ index 9d37e37..6891d86 100644
 -                *.tpz)     D=`basename "$i" .tpz`;;
 -          esac
 -          mkdir "$D"; (cd "$D" && "$1" "$2" "../$i" | tar xvf -)
--        done
--
++            gzip $decomp -v "$i"
+         done
+ 
 -+ f \.gz$ | f \.tgz$ | f \.tpz$ | f \.Z$ | f \.z$ | f \.bz2$ & t r & ! t t
 -c       Convert gz<->bz2, tar.gz<->tar.bz2 & tgz->tar.bz2
 -        unset D
