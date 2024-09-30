@@ -59,10 +59,6 @@
               zathura
           ];
 
-          shellHook = ''
-            mc
-            '';
-
         };
 
         packages.default = mc-custom;
